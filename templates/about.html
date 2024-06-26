@@ -1,0 +1,51 @@
+{% include "header.html" %}
+    <title>About Us</title>
+<style>
+    h1{
+        padding: 20px;
+    }
+    button{
+        margin-top: 30px;
+        cursor: pointer;
+    }
+    p{
+        margin-top: 20px;
+        color:white;
+        font-size: 20px;
+    }
+</style>
+</head>
+<body>
+
+    <h1 style="color: white; font-size: 50px;">About Us</h1>
+
+    <div class="container">
+        <p>Welcome to <span style="color:greenyellow">YUNIGMA</span>  – a revolutionary platform where skills speak louder than anything else.<br> Our mission is to transform the traditional hiring process, fostering a fair and unbiased environment for both employers and job seekers.</p>
+
+        <p>At <span style="color:greenyellow">YUNIGMA</span>, we believe in the power of skills and potential. We understand the challenges associated with bias in the recruitment process, and we aim to eliminate these challenges by providing a platform that focuses on merit, qualifications, and abilities.</p>
+
+        <p>What sets us apart is our commitment to conducting interviews anonymously.<br> By removing personal identifiers, we ensure that candidates are evaluated solely based on their skills and expertise. <br>This not only promotes diversity and inclusion but also opens doors to opportunities for individuals from all walks of life.</p>
+
+        <p>In addition to anonymous interviews, <span style="color:greenyellow">YUNIGMA</span> offers a comprehensive Aptitude Test feature. <br>This allows candidates to showcase their cognitive abilities, problem-solving skills, and aptitude in a standardized manner. Employers benefit from a more holistic evaluation, leading to the selection of candidates who truly fit the job requirements.</p>
+
+        <p>Whether you are a job seeker searching for a fair chance to shine or an employer looking to build a diverse and skilled workforce, <span style="color:greenyellow">YUNIGMA</span> is here to revolutionize the way recruitment is conducted. Join us on this journey where skills speak louder, unbiasedly.</p>
+        {% if user %}
+            <a href="{{ url_for('student_home', username=user) }}">
+            <button class="btn btn-outline-danger">Go Back</button>
+            </a>
+        {% elif cname %}
+            <a href="{{ url_for('company_home', c_name=cname) }}">
+            <button class="btn btn-outline-danger">Go Back</button>
+            </a>
+        {% else %}
+        <a href="{{ url_for('home') }}">
+            <button class="btn btn-outline-danger">Go Back</button>
+        </a>
+        {% endif %}
+    </div>
+
+
+    {% include "footer.html" %}
+
+</body>
+</html>

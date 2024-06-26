@@ -1,0 +1,24 @@
+{% include "header.html" %}
+  <title>Student Skills</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title">Your Skills</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ url_for('skills')}}" method="POST">
+                          <label for="skills">Enter your skills separated by commas.</label>
+                          <input type="text" name="skills" id="skills" />
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% include "fixed_footer.html" %}
+</body>

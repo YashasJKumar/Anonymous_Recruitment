@@ -1,0 +1,40 @@
+{% include "header.html" %}
+    <title>Quiz Result</title>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            max-width: 600px;
+            margin: auto;
+            color: white;
+        }
+        h1{
+            text-align: center;
+        }
+        p {
+            text-align: center;
+            font-size: 20px;
+        }
+        .score {
+            font-size: 20px;
+            font-weight: bold;
+            color: greenyellow;
+        }
+        .total-questions{
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz Result</h1>
+    <p>Your score: <span class="score">{{ score }}</span> out of <span class="total-questions">{{ total_questions }}</span> </p>
+    <div>
+    <a href="{{ url_for('student_home', username = username) }}">
+        <button type="button" class="btn btn-outline-primary">Go to Home</button>
+    </a>
+        <p>Please go & check email for surprise!</p>
+    </div>
+
+</body>
+</html>

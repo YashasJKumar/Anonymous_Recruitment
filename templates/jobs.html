@@ -1,0 +1,90 @@
+{% include "header.html" %}
+    <title>Job Opportunities</title>
+
+   <style>
+    .top-left-button {
+        position: fixed;
+        top: 20px;
+        left: 50px;
+    }
+
+    /* Add styling for job containers */
+    .jobs-container {
+        display: flex;
+        justify-content: space-around; /* Center cards with space around them */
+        margin: 20px 10px;
+        flex-wrap: wrap; /* Allow cards to wrap to the next line */
+    }
+
+    .job-card {
+        width: calc(30% - 20px); /* Set the width dynamically with margin */
+        margin: 10px; /* Adjust margin as needed */
+        border: 2px solid cornflowerblue;
+        border-radius: 10px;
+        padding: 20px;
+        box-sizing: border-box;
+        color: black;
+        background-color: white;
+        transition: transform 0.3s ease;
+    }
+
+    .job-card:hover {
+        transform: scale(1.05);
+        background-color: lightblue;
+        border: 2px solid white;
+    }
+
+    .company-name {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: blue;
+    }
+
+    .skills {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .job-role {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .annual-package {
+        font-size: 14px;
+    }
+</style>
+
+</head>
+<body>
+
+  <div class="top-left-button">
+    <button onclick="goBack()" class="btn btn-outline-danger">Go Back</button>
+  </div>
+
+    <h1 style="color: white; font-size: 50px;">Job Opportunities</h1>
+  <br><br>
+    <div class="jobs-container">
+        {% for job in all_jobs %}
+        <div class="job-card">
+            <div class="company-name" name="c_name"><b>{{ job[0] }}</b></div>
+            <div class="skills"><b>Skills: </b>{{ job[1] }}</div>
+            <div class="job-role"><b>Job Role:</b> {{ job[2] }}</div>
+            <div class="annual-package"><b>Annual Package: </b>{{ job[3] }} LPA</div><br>
+            <a href="{{ url_for('exam_page', c_name=job[0]) }}">
+            <button class="btn btn-outline-primary">Apply Now</button>
+        </a>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <script>
+        function goBack() {
+            window.location.href = "{{ url_for('student_home', username = username)}}";
+        }
+    </script>
+
+</body>
+</html>

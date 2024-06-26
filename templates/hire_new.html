@@ -1,0 +1,68 @@
+{% include "header.html" %}
+    <title>Company Information Form</title>
+    <style>
+        body {
+            color: white;
+            font-family: Helvetica, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        form {
+            text-align: left;
+            color:white;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color:white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Company Information Form</h1>
+
+        <form action="{{ url_for('hire') }}" method="post">
+            <label for="companyName">Company Name:</label>
+            <input type="text" id="companyName" name="companyName" required>
+
+            <label for="companySector">Company Sector: </label>
+            <select name="companySector" id="companySector">
+                <option value="Public">Public</option>
+                <option value="Private">Private</option>
+            </select>
+
+            <label for="c_url">Company Website URL: </label>
+            <input type="text" id="c_url" name="c_url" required>
+
+            <label for="c_email">Company email: </label>
+            <input type="text" id="c_email" name="c_email" required>
+
+
+            <label for="jobRole">Job Role for Hiring:</label>
+            <input type="text" id="jobRole" name="jobRole" required>
+
+            <label for="skills">Skills Required:</label>
+            <input type="text" id="skills" name="skills" placeholder="Enter skills separated by commas">
+
+            <label for="annualPackage">Annual Package(in LPa):</label>
+            <input type="text" id="annualPackage" name="annualPackage" required>
+
+            <button type="submit" class="btn btn-outline-success">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>

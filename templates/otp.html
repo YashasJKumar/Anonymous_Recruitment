@@ -1,0 +1,26 @@
+{% from 'bootstrap5/form.html' import render_form %}
+{% include "header.html" %}
+    <title>OTP Form</title>
+</head>
+<body>
+
+  <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title">OTP</h3>
+                    </div>
+                    <div class="card-body">
+                        {{ render_form(form, novalidate=True) }}
+                    </div>
+                    <p>
+                        <b> Note : </b>Once you enter OTP, The Test starts immediately!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% include "fixed_footer.html" %}
+</body>
+</html>

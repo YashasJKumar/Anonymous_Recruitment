@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .container{
+            width: 100%;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 850px;
+            margin: auto;
+            background: black;
+            padding: 20px; /* Add padding for better spacing */
+        }
+        h1 {
+            font-size: 40px;
+            color: blue;
+            text-align: center;
+            font-weight: bolder;
+        }
+        p {
+            font-size: 20px;
+            text-align: left;
+            font-weight: bold;
+        }
+        form {
+            margin-top: 20px;
+            padding: 2px;
+            color: white;
+        }
+        /* Add custom styles for better spacing and alignment */
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input {
+            cursor: pointer;
+            padding: 1px;
+            display: inline;
+        }
+        /* Add timer styles */
+        .timer-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn{
+            margin-bottom: 40px;
+            margin-left: 40%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Timer display container -->
+    <div class="timer-container">
+        Time Remaining: <span id="timer"></span>
+    </div>
+
+    <div class="container"> <!-- Add a container to center the content and provide padding -->
+        <h1 class="mt-4">Aptitude Quiz</h1>
+        <form method="post" action="{{ url_for('index')}}" class="mt-3">
+            {% for question in questions %}
+                <div class="mb-3">
+                    <p>Q {{ loop.index }}. {{ question.question }}</p>
+                    {% for choice in question.choices %}
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="question_{{ question }}" value="{{ choice }}" id="choice_{{ loop.index }}">
+                            <label class="form-check-label" for="choice_{{ loop.index }}">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    {% include "footer.html" %}
+
+    <!-- Include Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        // Set the timer for 10 minutes (10 * 60 seconds)
+        const timerDuration = 20 * 60;
+        let timer = timerDuration;
+
+        // Timer display element
+        const timerDisplay = document.getElementById('timer');
+
+        // Update the timer every second
+        const countdown = setInterval(function () {
+            timer--;
+
+            // Format minutes and seconds
+            const minutes = Math.floor(timer / 60);
+            const seconds = timer % 60;
+
+            // Update the timer display
+            timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+            // Check if the timer has reached 0
+            if (timer <= 0) {
+                // Redirect to the "time over" page
+                alert('Time is over! Better Luck next time');
+                window.location.href = '{{ url_for("home")}}';
+
+                // Clear the interval to stop the countdown
+                clearInterval(countdown);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

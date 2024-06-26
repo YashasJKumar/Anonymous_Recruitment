@@ -1,0 +1,47 @@
+{% include "header.html" %}
+    <title>Sign In</title>
+</head>
+<body>
+
+
+    <div class="signin-container">
+        <h2 style="color: yellow;">Select your role:</h2>
+        <button onclick="redirectToRole('student')" class="btn btn-outline-primary">Applicant</button>
+        <a href="{{ url_for('sign_in_company')}}">
+            <button class="btn btn-outline-primary"> Company </button>
+        </a>
+        <button onclick="redirectToRole('administrator')" class="btn btn-outline-primary">Administrator</button>
+
+        <!-- Container for company options, initially hidden
+        <div id="companyOptions" style="display: none;">
+            <h3 style="color: yellow;">Select your sector:</h3>
+            <button onclick="redirectToRole('company', 'private')">Private Sector</button>
+            <button onclick="redirectToRole('company', 'public')">Public Sector</button>
+        </div>
+        -->
+    </div>
+
+    <script>
+        function redirectToRole(role, sector) {
+            // If sector is specified, append it to the role
+            var roleWithSector = sector ? `${role}_${sector}` : role;
+
+            // Check if the role includes a sector and redirect accordingly
+            if (role.includes('company') && sector) {
+                window.location.href = `{{ url_for('student_sign_in') }}`; // Redirect to signin_private.html or signin_public.html
+            } else {
+                window.location.href = `{{ url_for('student_sign_in') }}`; // Redirect to other role-specific pages
+            }
+        }
+
+        function showCompanyOptions() {
+            var companyOptions = document.getElementById("companyOptions");
+
+            // Show the company options container
+            companyOptions.style.display = "block";
+        }
+    </script>
+{% include "fixed_footer.html" %}
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% include "header.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+<title>Aptitude Round Instructions</title>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                    <p style="color: red">{{ message }}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title">Exam Form</h3>
+                    </div>
+                    <div class="card-body">
+                        {{ render_form(exam_form, novalidate=True) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% include "fixed_footer.html" %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-e3JhjEGgo5l9AWEL67E8qle1mx2cw6p0M2JL7K91NqzA4SwcA65FEZlEpIMY5Zxg" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    text-align: center;
+    /*font-family: 'Playfair Display', serif;*/
+    font-family: 'Lora', serif;
+}
+
+h1{
+    padding: 10px;
+}
+
+h3{
+    padding: 10px;
+}
+/* Logo styling */
+.logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.logo-container img {
+    width: 150px; /* Set your desired width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+#dynamicText{
+    margin-top: 150px;
+    color: white;
+    /* text-shadow: 4px 4px 4px red; /* Adjust the values for the 3D effect */
+    font-size: 80px;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typingDeleting 5s steps(150) infinite;  
+}
+@keyframes typingDeleting {
+    0%, 100%{
+        width: 0; /* Start with zero width and repeat at 100% */
+    }
+    50% {
+        width: 160%; /* Full width at 50% */
+    }
+}
+
+
+
+h2 {
+    margin-top: 10px;
+    color: white;
+    font-size: 45px;
+    margin-bottom: 15px;
+    /*animation: moveText 3s ease infinite alternate; /* Animation properties */
+}
+h3{
+    color: white;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+@keyframes moveText {
+    from {
+        transform: translateX(0); /* Start position */
+    }
+    to {
+        transform: translateX(30px); /* End position */
+    }
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#username,
+#password,
+#role,
+#mbl,
+#mail,
+#email,
+#mobile,
+#confpassword,
+#confirmPassword,
+#dob,
+#photo,
+#address,
+#companySector
+    {
+    width: 300px;
+}
+
+
+a {
+    text-decoration: none;
+    color: #3498db;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #2980b9;
+}
+
+.top-right-buttons {
+    position: absolute;
+    top: 12px;
+    right:230px;
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+
+

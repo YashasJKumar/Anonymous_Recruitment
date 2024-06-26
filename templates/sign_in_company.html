@@ -1,0 +1,31 @@
+{% include "header.html" %}
+<title xmlns="http://www.w3.org/1999/html">Company Login</title>
+</head>
+<body>
+
+    <div class="signin-container">
+        <h2>Login to
+            <span style="color: yellowgreen"> Yunigma </span>
+        </h2>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+            <p style="color: red">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('sign_in_company') }}" method="POST">
+            <label style="color: white;" for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
+
+            <label style="color: white;" for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <br>
+        <p style="color: white;">Don't have an account? <a href="{{ url_for('sign_up') }}">Sign up</a></p>
+    </div>
+{% include "fixed_footer.html" %}
+</body>
+</html>

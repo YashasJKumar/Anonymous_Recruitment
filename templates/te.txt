@@ -1,0 +1,32 @@
+EMAIL = "njsreactdom@gmail.com"
+PASSWORD = "vaweeqqzwmjakwoj"
+onsubmit="return validatePasswordAndRedirect()"  enctype="multipart/form-data"
+user_answers.get(f'question_{api_response.index(question) + 1}')
+
+
+
+
+{&amp;#39;email&amp;#39;: &amp;#39;yashasmacair@gmail.com&amp;#39;, &amp;#39;username&amp;#39;: &amp;#39;Yashas J Kumar&amp;#39;}
+
+
+<!-- Container 2 -->
+        <div class="job-card">
+            <div class="company-name"><b>Flipkart</b></div>
+            <div class="skills"><b>Skills: </b>Python, Django, SQL</div>
+            <div class="job-role"><b>Job Role: </b>Python Developer</div>
+            <div class="annual-package"><b>Annual Package: </b>30 LPA</div><br>
+            <a href="{{ url_for('exam_page', c_name = 'Flipkart') }}">
+            <button class="btn btn-outline-primary">Apply Now</button>
+            </a>
+        </div>
+
+        <!-- Container 3 -->
+        <div class="job-card">
+            <div class="company-name"><b>Microsoft</b></div>
+            <div class="skills"><b>Skills: </b>React, Node.js, MongoDB</div>
+            <div class="job-role"><b>Job Role: </b>Frontend Developer</div>
+            <div class="annual-package"><b>Annual Package: </b>26 LPA</div><br>
+            <a href="{{ url_for('exam_page', c_name = 'Microsoft') }}">
+            <button class="btn btn-outline-primary">Apply Now</button>
+            </a>
+        </div>

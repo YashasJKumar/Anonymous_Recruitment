@@ -1,0 +1,159 @@
+{% include "header.html" %}
+
+    <title>Sign Up</title>
+<style>
+        /* Add centering styles for the button */
+        #signupButton {
+            margin: 0 auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h1 style="color: yellow;">Create an Account</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+            <p style="color: red">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('sign_up')}}" method="POST">
+            <label style="color: white;" for="role">Select Role:</label>
+            <select id="role" name="role"  onchange="showCompanySectorQuestion()" required>
+                <option value="select">Select</option>
+                <option value="applicant">Applicant</option>
+                <option value="company">Company</option>
+            </select>
+            <br>
+            <div id="companySectorQuestion" style="display: none;">
+                <label style="color: white;" for="companySector">Company Sector:</label>
+                <select id="companySector" name="companySector" required>
+                    <option value="select">Select</option>
+                    <option value="private">Private Sector</option>
+                    <option value="public">Public Sector</option>
+                </select>
+            </div>
+            <br>
+            <label style="color: white;" for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            
+
+            <label style="color: white;" for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            <small style="color: cadetblue;">(Password must contain at least one special character, <br>
+                one capital letter, and be at least 6 characters long.)</small>
+
+            <label style="color: white;" for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+            <br>
+
+        <div class="additional-info-container">
+
+            <label style="color: white;" for="username">Full name:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label style="color: white;" for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+            <br>
+            <label style="color: white;" for="mobile">Mobile:</label>
+            <input type="tel" id="mobile" name="mobile" required>
+            <br>
+            <label style="color: white;" for="photo">Upload Photo:</label>
+            <input type="file", id="photo" name="photo" accept="image/*">
+            <br>
+            <label style="color: white;" for="address">Address:</label>
+            <textarea id="address" name="address" ></textarea>
+            <br><br>
+            <label style="color: white;display: inline-block;">
+                <input type="checkbox" id="agreeCheckbox" onchange="toggleSignupButton()" required>
+                I agree to the terms and services
+            </label>
+
+            <!-- Add more fields as needed -->
+            <br>
+            <button type="submit" id="signupButton" class="btn-outline-primary" style="display: none;">Sign Up</button>
+        </form>
+    </div>
+
+        <p style="color: white;">Already have an account? <a href="signin.html">Sign in</a></p>
+    </div>
+
+    <script>
+        
+        function showCompanySectorQuestion() {
+            var roleSelect = document.getElementById("role");
+            var companySectorQuestion = document.getElementById("companySectorQuestion");
+
+            // Show the company sector question only if the selected role is "company"
+            companySectorQuestion.style.display = roleSelect.value === "company" ? "block" : "none";
+        }
+
+
+        function validatePassword() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            window.location.href = "{{ url_for('sign_in') }}";
+            return false;
+        }
+
+        function validatePasswordAndRedirect() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Password validation criteria
+            var passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/;
+
+            if (!passwordRegex.test(password)) {
+                alert("Password must contain at least one special character, one capital letter, and be at least 6 characters long.");
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+
+            // Additional validation logic can be added here
+
+            // Redirect to additional_info.html after successful validation
+            window.location.href = "{{ url_for('sign_in')}}";
+            return false; // Prevent default form submission
+        }
+
+    </script>
+
+     <script>
+        function toggleSignupButton() {
+            var agreeCheckbox = document.getElementById("agreeCheckbox");
+            var signupButton = document.getElementById("signupButton");
+
+            // Show the signup button only if the checkbox is checked
+            signupButton.style.display = agreeCheckbox.checked ? "block" : "none";
+        }
+
+        function validateAndSubmit() {
+            var agreeCheckbox = document.getElementById("agreeCheckbox");
+
+            // Check if the checkbox is checked before submitting the form
+            if (!agreeCheckbox.checked) {
+                alert("Please agree to the terms and services before signing up.");
+                return false;
+            }
+
+            // Additional validation logic can be added here
+
+            return true; // Proceed with form submission
+        }
+    </script>
+{% include "footer.html" %}
+</body>
+</html>
