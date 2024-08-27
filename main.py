@@ -1,13 +1,7 @@
 '''
 Created on December 21, 2023,
-Team Yunigma :
-    Yashas J Kumar
-    Yashwanth Kumar A M
-    Jeevan D M
-    Hariprasad Guttedar
-    Rohan Vijay
 
-    -->  Vidyavardhaka College of Engineering, Mysuru.
+Yashas J Kumar
 '''
 
 # ------------------------------------------- IMPORTS ------------------------------------------------------
@@ -26,27 +20,28 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
 import requests
 from functools import wraps
+from dotenv import load_dotenv
 
 #------------------------------------------- CONSTANTS -----------------------------------------------------
 
-
-EMAIL = os.environ.get("Email")
-PASSWORD = os.environ.get("Password")
+load_dotenv()
+EMAIL = os.environ.get("EMAIL")
+PASSWORD = os.environ.get("PASSWORD")
 
 # Initializing a new Flask Application __name__ ⇒ Root Path of the appln & tells where to find the requirements like temlates, static
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('Key') # Security setting to manage sessions & cookies.
+app.config['SECRET_KEY'] = os.environ.get('KEY') # Security setting to manage sessions & cookies.
 Bootstrap5(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('User_DB')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://<postgres_username>:<postgres_password>@localhost:5433/<DB_NAME>'
 # Specifies the URl of the primary db to SQLAlchemy.
 
 # Binds → bind multiple databases to a single Flask application.
-app.config['SQLALCHEMY_BINDS'] = {
-    'company': os.environ.get('C_DB'),
-    'tests': os.environ.get('T_DB'),
-    'written': os.environ.get('W_DB')
-}
+# app.config['SQLALCHEMY_BINDS'] = {
+#     'company': os.environ.get('C_DB'),
+#     'tests': os.environ.get('T_DB'),
+#     'written': os.environ.get('W_DB')
+# }
 
 """
 SQLAlchemy → SQLAlchemy is an Object Relational Mapper (ORM) that provides a high-level abstraction for interacting 
@@ -97,7 +92,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.String(20), primary_key=True, unique=True)
     username = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(150), nullable=False)
     address = db.Column(db.String(120), nullable=False)
     dob = db.Column(db.String(120), nullable=False)
     mobile = db.Column(db.String(120), nullable=False)
@@ -105,12 +100,12 @@ class User(UserMixin, db.Model):
 
 
 class Company(db.Model, UserMixin):
-    __bind_key__ = 'company'
+    # __bind_key__ = 'company'
     # Optional Attribute → Telling SQLAlchemy that this model should use a specific database connection.
 
     c_name = db.Column(db.String(80), nullable=False, primary_key=True)
     c_email = db.Column(db.String(120, ), nullable=False, unique=True)
-    password = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(150), nullable=False)
     sector = db.Column(db.String(80), nullable=False)
     address = db.Column(db.String(120), nullable=False)
     mobile = db.Column(db.String(120), nullable=False)
@@ -120,7 +115,6 @@ class Company(db.Model, UserMixin):
 
 
 class Tests(UserMixin, db.Model):
-    __bind_key__ = 'tests'
     test_id = db.Column(db.String(20), primary_key=True, unique=True)
     company_name = db.Column(db.String(80), nullable=False, unique=True)
     c_sector = db.Column(db.String(80), nullable=False)
@@ -132,12 +126,10 @@ class Tests(UserMixin, db.Model):
 
 
 class Written(UserMixin, db.Model):
-    __bind_key__ = 'written'
     sl_no = db.Column(db.Integer, nullable=False, primary_key=True)
     c_name = db.Column(db.String(80), nullable=False)
     user_id = db.Column(db.String(20), nullable=False)
     score = db.Column(db.Integer, nullable=False)
-
 
 
 """
@@ -341,10 +333,10 @@ def index():
         # Process the form submission and calculate the score
         user_answers = {key: request.form[key] for key in request.form}
         score = calculate_score(user_answers)
-        with open("../count.txt", "r") as file:
+        with open("./count.txt", "r") as file:
             count = int(file.read())
             sl_no = count + 1
-        with open("../count.txt", "w") as file:
+        with open("./count.txt", "w") as file:
             file.write(str(sl_no))
         c_name = session['c_name']
         new_writer = Written(user_id=user_id, sl_no=sl_no, c_name=c_name, score=score)
@@ -439,11 +431,11 @@ def skills():
 
 def generate_unique_id():
     unique_id = ""
-    with open('../unique_id.txt', 'r') as unique_id_file:
+    with open('unique_id.txt', 'r') as unique_id_file:
         prev_id = int(unique_id_file.read())
         prev_id += 1
         unique_id = "YUN" + str(prev_id)
-    with open('../unique_id.txt', 'w') as unique_id_file:
+    with open('unique_id.txt', 'w') as unique_id_file:
         unique_id_file.write(str(prev_id))
 
     return unique_id
@@ -451,13 +443,13 @@ def generate_unique_id():
 
 def generate_test_id():
     test_id = "TEST"
-    with open("../test_id.txt", "r") as id_file:
+    with open("./test_id.txt", "r") as id_file:
         prev_no = int(id_file.read())
         cur_no = prev_no + 1
         test_id += str(cur_no)
 
     # Updating the file.
-    with open("../test_id.txt", "w") as id_file:
+    with open("./test_id.txt", "w") as id_file:
         id_file.write(str(cur_no))
 
     return test_id
@@ -476,3 +468,4 @@ def send_mail(to, subject):
 
 if __name__ == '__main__':
     app.run(debug=False)
+
