@@ -84,7 +84,7 @@ Before you begin, ensure you have met the following requirements:
 
 4. **Configure the database connection:**
 
-   Open the `config.py` file (or wherever your configuration is set), and replace the `SQLALCHEMY_DATABASE_URI` with your PostgreSQL connection string:
+   Open the `main.py` file (or wherever your configuration is set), and replace the `SQLALCHEMY_DATABASE_URI` with your PostgreSQL connection string:
 
    ```python
    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://your_username:your_password@localhost/your_database_name'
