@@ -33,7 +33,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('KEY') # Security setting to manage sessions & cookies.
 Bootstrap5(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://<postgres_username>:<postgres_password>@localhost:5433/<DB_NAME>'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://<postgres_username>:<postgres_password>@localhost:<port_no>/<DB_NAME>'
 # Specifies the URl of the primary db to SQLAlchemy.
 
 # Binds → bind multiple databases to a single Flask application.
@@ -294,8 +294,7 @@ def exam_page(c_name):
             return redirect(url_for('exam_page', c_name=c_name))
         session['c_name'] = c_name
         generated_otp = random.randint(100000, 9999999)
-        with open("generated_otp.txt", "w") as otp_file:
-            otp_file.write(str(generated_otp))
+        session['otp'] = generated_otp
         message = (f'Subject:Yunigma Mailing Services\n\n OTP Generated\n\n'
                    f'Your otp is: {generated_otp}\n Valid only for 1min.')
         send_mail(user_email, message)
@@ -372,10 +371,10 @@ def generated_otp():
     if request.method == 'GET':
         return render_template('otp.html', form=Otp_Form())
     elif request.method == 'POST':
-        with open("generated_otp.txt", 'r') as f:
-            generated_otp = int(f.read())
+        generated_otp = session['otp']
         otp = request.form['otp']
         if int(otp) == int(generated_otp):
+            session.pop('otp', None)
             return redirect(url_for('index'))
         else:
             return f"<h1>Invalid OTP!</h1>"
